@@ -1,7 +1,27 @@
+import { useState } from "react";
 import styled from "styled-components";
 import Note from "./components/note";
 
+interface FormData {
+  title: string;
+  text: string;
+}
+
 function App() {
+  const [formData, setFormData] = useState<FormData>({ title: "", text: "" });
+  const [notes, setNotes] = useState<FormData[]>([]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setNotes([...notes, formData]);
+    setFormData({ title: "", text: "" });
+  };
+
   return (
     <>
       <Header>
@@ -9,12 +29,33 @@ function App() {
         <input type="search" placeholder="Pesquisar notas" />
       </Header>
       <Main>
-        <Form>
-          <input type="text" placeholder="Título" />
-          <input type="text" placeholder="Criar nota..." />
+        <Form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            placeholder="Título"
+            required
+          />
+          <input
+            type="text"
+            id="text"
+            name="text"
+            value={formData.text}
+            onChange={handleChange}
+            placeholder="Criar nota..."
+            required
+          />
+          <button type="submit">Enviar</button>
         </Form>
         <section>
-          <Note/>
+          <ul>
+            {notes.map((data, index) => (
+              <Note key={index} title={data.title} text={data.text} />
+            ))}
+          </ul>
         </section>
       </Main>
     </>
@@ -60,7 +101,7 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 33.125rem;
-  height: 6.438rem;
+  height: 8rem;
   background-color: #d9d9d9;
   border-radius: 3px;
   padding: 1px;
@@ -74,12 +115,21 @@ const Form = styled.form`
     background-color: #ffffff;
     width: 100%;
   }
+  button{
+    border: none;
+    padding: 0 1rem;
+    cursor: pointer;
+    background-color: #ffffff;
+    color: #4F4F4D;
+    width: 100%;
+    height: 15%;
+    border-radius: 0 0 3px 3px;
+  }
   :first-child {
     border-radius: 3px 3px 0 0;
-    height: 40%;
+    height: 25%;
   }
-  :last-child {
-    border-radius: 0 0 3px 3px;
+  :nth-child(2) {
     height: 60%;
   }
 `;

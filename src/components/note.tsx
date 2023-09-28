@@ -1,11 +1,16 @@
 import styled from "styled-components";
 
-export default function Note() {
+interface Props {
+    title: string;
+    text: string;
+  }
+
+export default function Note({ title, text }:Props) {
   return (
     <StyledLi>
-      <h3>Titulo</h3>
+      <h3>{title}</h3>
       <div>
-        <p>Clique ou arraste o arquivo para esta área para fazer upload</p>
+        <p>{text}</p>
       </div>
     </StyledLi>
   );
@@ -37,5 +42,6 @@ const StyledLi = styled.li`
   }
   p {
     width: 100%;
+    overflow-wrap: break-word;
   }
 `;
