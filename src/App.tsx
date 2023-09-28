@@ -140,6 +140,7 @@ const Form = styled.form`
   @media (max-width: 54.85rem) {
     width: 24.375rem;
     border-radius: 25px;
+    box-shadow: 1px 2px 3px 0px #00000040;
   }
   input {
     border: none;
@@ -156,7 +157,7 @@ const Form = styled.form`
     background-color: #ffffff;
     color: #4f4f4d;
     width: 100%;
-    height: 15%;
+    height: 20%;
     border-radius: 0 0 3px 3px;
     @media (max-width: 54.85rem) {
       border-radius: 0 0 25px 25px;
@@ -170,6 +171,6 @@ const Form = styled.form`
     }
   }
   :nth-child(2) {
-    height: 60%;
+    height: 55%;
   }
 `;
