@@ -51,6 +51,7 @@ function App() {
           <button type="submit">Enviar</button>
         </Form>
         <section>
+          <h2>Outras</h2>
           <ul>
             {notes.map((data, index) => (
               <Note key={index} title={data.title} text={data.text} />
@@ -93,8 +94,37 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 5%;
+  justify-content: center;
   row-gap: 1.5rem;
+  margin-bottom: 3.5rem;
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 0.75rem;
+    min-width: 24.375rem;
+    width: 77.125rem;
+    @media (max-width: 81.125rem) {
+      width: 50.85rem;
+    }
+    @media (max-width: 54.85rem) {
+      width: 24.375rem;
+    }
+    h2 {
+      margin-left: 1.25rem;
+      width: fit-content;
+      font-size: 0.75rem;
+      color: #464646;
+    }
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: flex-start;
+      width: 100%;
+      gap: 2rem;
+    }
+  }
 `;
 
 const Form = styled.form`
@@ -107,6 +137,10 @@ const Form = styled.form`
   padding: 1px;
   row-gap: 1px;
   box-shadow: 1px 1px 3px 0px #00000040;
+  @media (max-width: 54.85rem) {
+    width: 24.375rem;
+    border-radius: 25px;
+  }
   input {
     border: none;
     padding: 0 1rem;
@@ -115,19 +149,25 @@ const Form = styled.form`
     background-color: #ffffff;
     width: 100%;
   }
-  button{
+  button {
     border: none;
     padding: 0 1rem;
     cursor: pointer;
     background-color: #ffffff;
-    color: #4F4F4D;
+    color: #4f4f4d;
     width: 100%;
     height: 15%;
     border-radius: 0 0 3px 3px;
+    @media (max-width: 54.85rem) {
+      border-radius: 0 0 25px 25px;
+    }
   }
   :first-child {
     border-radius: 3px 3px 0 0;
     height: 25%;
+    @media (max-width: 54.85rem) {
+      border-radius: 25px 25px 0 0;
+    }
   }
   :nth-child(2) {
     height: 60%;

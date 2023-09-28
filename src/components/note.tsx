@@ -29,14 +29,14 @@ const StyledLi = styled.li`
     height: 10.6%;
     font-size: 0.875rem;
     font-weight: 700;
-    padding: 1.25rem 1rem 0 1rem;
+    padding: 1.25rem 1.25rem 0 1.25rem;
     border-bottom: 1px solid #d9d9d9;
   }
   div {
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 0.8rem 1rem;
+    padding: 0.8rem 1.25rem;
     height: 89.4%;
     font-size: 0.813rem;
   }
