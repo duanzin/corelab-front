@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Note from "./components/note";
 
 function App() {
   return (
@@ -12,6 +13,9 @@ function App() {
           <input type="text" placeholder="Título" />
           <input type="text" placeholder="Criar nota..." />
         </Form>
+        <section>
+          <Note/>
+        </section>
       </Main>
     </>
   );
@@ -49,6 +53,7 @@ const Main = styled.main`
   flex-direction: column;
   align-items: center;
   padding: 0 5%;
+  row-gap: 1.5rem;
 `;
 
 const Form = styled.form`
