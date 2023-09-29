@@ -3,27 +3,43 @@ import {
   RiPaintFill,
   RiPencilLine,
   RiCloseLine,
-  RiStarLine,
+  RiStarFill,
 } from "react-icons/ri";
 
 interface Props {
+  id: string;
   title: string;
   text: string;
+  favorite: boolean;
+  onToggleFavorite: () => void;
 }
 
-export default function Note({ title, text }: Props) {
-  const iconStyle = { fontSize: "1.5rem", cursor: "pointer" };
+export default function Note({
+  title,
+  text,
+  favorite,
+  onToggleFavorite,
+}: Props) {
+  const iconStyle = {
+    fontSize: "1.5rem",
+    cursor: "pointer",
+    color: favorite ? "#FFAC1C" : "inherit",
+  };
   return (
     <StyledLi>
       <h3>
         {title}
-        <RiStarLine style={iconStyle}/>
+        <RiStarFill
+          style={iconStyle}
+          onClick={onToggleFavorite}
+          className={favorite ? "favorite" : ""}
+        />
       </h3>
       <p>{text}</p>
       <div>
-        <RiPencilLine style={iconStyle} />
-        <RiPaintFill style={iconStyle} />
-        <RiCloseLine style={iconStyle} />
+        <RiPencilLine style={{ ...iconStyle, color: "inherit" }} />
+        <RiPaintFill style={{ ...iconStyle, color: "inherit" }} />
+        <RiCloseLine style={{ ...iconStyle, color: "inherit" }} />
       </div>
     </StyledLi>
   );
