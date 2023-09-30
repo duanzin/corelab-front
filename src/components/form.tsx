@@ -7,6 +7,7 @@ interface FormData {
   title: string;
   text: string;
   favorite: boolean;
+  color: string;
 }
 
 type SetNotesFunction = React.Dispatch<React.SetStateAction<FormData[]>>;
@@ -22,6 +23,7 @@ export default function NoteForm({ notes, setNotes }: NoteFormProps) {
     title: "",
     text: "",
     favorite: false,
+    color: "#FFFFFF",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +35,13 @@ export default function NoteForm({ notes, setNotes }: NoteFormProps) {
     e.preventDefault();
     const newNote = { ...formData, id: uuidv4() };
     setNotes([...notes, newNote]);
-    setFormData({ id: "", title: "", text: "", favorite: false });
+    setFormData({
+      id: "",
+      title: "",
+      text: "",
+      favorite: false,
+      color: "#FFFFFF",
+    });
   };
   return (
     <Form onSubmit={handleSubmit}>
@@ -43,6 +51,7 @@ export default function NoteForm({ notes, setNotes }: NoteFormProps) {
         name="title"
         value={formData.title}
         onChange={handleChange}
+        autoComplete="off"
         placeholder="Título"
         required
       />
@@ -52,6 +61,7 @@ export default function NoteForm({ notes, setNotes }: NoteFormProps) {
         name="text"
         value={formData.text}
         onChange={handleChange}
+        autoComplete="off"
         placeholder="Criar nota..."
         required
       />

@@ -8,6 +8,7 @@ interface FormData {
   title: string;
   text: string;
   favorite: boolean;
+  color: string;
 }
 
 function App() {
@@ -26,6 +27,14 @@ function App() {
     setNotes((prevNotes) => prevNotes.filter((note) => note.id !== idToDelete));
   };
 
+  const handleColorChange = (id: string, selectedColor: string) => {
+    setNotes((prevNotes) =>
+      prevNotes.map((note) =>
+        note.id === id ? { ...note, color: selectedColor } : note
+      )
+    );
+  };
+
   return (
     <>
       <Header>
@@ -40,6 +49,7 @@ function App() {
             notes={notes.filter((data) => data.favorite)}
             toggleFavorite={toggleFavorite}
             handleDeleteNote={handleDeleteNote}
+            handleColorChange={handleColorChange}
           />
         )}
         {notes.some((data) => !data.favorite) && (
@@ -48,6 +58,7 @@ function App() {
             notes={notes.filter((data) => !data.favorite)}
             toggleFavorite={toggleFavorite}
             handleDeleteNote={handleDeleteNote}
+            handleColorChange={handleColorChange}
           />
         )}
       </Main>

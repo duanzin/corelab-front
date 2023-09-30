@@ -6,6 +6,7 @@ interface FormData {
   title: string;
   text: string;
   favorite: boolean;
+  color: string;
 }
 
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
   notes: FormData[];
   toggleFavorite: (id: string) => void;
   handleDeleteNote: (id: string) => void;
+  handleColorChange: (id: string, selectedColor: string) => void;
 }
 
 export default function NoteSection({
@@ -20,6 +22,7 @@ export default function NoteSection({
   notes,
   toggleFavorite,
   handleDeleteNote,
+  handleColorChange,
 }: Props) {
   return (
     <StyledSection>
@@ -32,8 +35,10 @@ export default function NoteSection({
             title={data.title}
             text={data.text}
             favorite={data.favorite}
+            bgColor={data.color}
             onToggleFavorite={() => toggleFavorite(data.id)}
             onDelete={() => handleDeleteNote(data.id)}
+            onColorChange={(color) => handleColorChange(data.id, color)}
           />
         ))}
       </ul>
@@ -46,7 +51,6 @@ const StyledSection = styled.section`
   flex-direction: column;
   align-items: flex-start;
   row-gap: 0.75rem;
-  min-width: 24.375rem;
   width: 77.125rem;
   @media (max-width: 81.125rem) {
     width: 50.85rem;

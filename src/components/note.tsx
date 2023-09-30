@@ -1,4 +1,6 @@
+import { useState } from "react";
 import styled from "styled-components";
+import ColorPanel from "./colorSelection";
 import {
   RiPaintFill,
   RiPencilLine,
@@ -11,17 +13,22 @@ interface Props {
   title: string;
   text: string;
   favorite: boolean;
+  bgColor: string;
   onToggleFavorite: () => void;
   onDelete: () => void;
+  onColorChange: (color: string) => void;
 }
 
 export default function Note({
   title,
   text,
   favorite,
+  bgColor,
   onToggleFavorite,
   onDelete,
+  onColorChange,
 }: Props) {
+  const [isColorPanelVisible, setIsColorPanelVisible] = useState(false);
   const iconStyle = {
     fontSize: "1.5rem",
     cursor: "pointer",
@@ -32,8 +39,17 @@ export default function Note({
     onDelete();
   };
 
+  const handleColorClick = () => {
+    setIsColorPanelVisible(!isColorPanelVisible);
+  };
+
+  const handleColorChange = (selectedColor: string) => {
+    onColorChange(selectedColor);
+    setIsColorPanelVisible(false);
+  };
+
   return (
-    <StyledLi>
+    <StyledLi bgcolor={bgColor}>
       <h3>
         {title}
         <RiStarFill
@@ -45,22 +61,30 @@ export default function Note({
       <p>{text}</p>
       <div>
         <RiPencilLine style={{ ...iconStyle, color: "inherit" }} />
-        <RiPaintFill style={{ ...iconStyle, color: "inherit" }} />
+        <RiPaintFill
+          style={{ ...iconStyle, color: "inherit" }}
+          onClick={handleColorClick}
+        />
         <RiCloseLine
           style={{ ...iconStyle, color: "inherit" }}
           onClick={handleDelete}
         />
+        {isColorPanelVisible && (
+          <ColorPanel onColorChange={handleColorChange} />
+        )}
       </div>
     </StyledLi>
   );
 }
 
-const StyledLi = styled.li`
+const StyledLi = styled.li<{ bgcolor: string }>`
+  position: relative;
+  box-sizing: content-box;
   display: flex;
   flex-direction: column;
   width: 24.375rem;
   height: 27.313rem;
-  background-color: #ffffff;
+  background-color: ${(props) => props.bgcolor};
   color: #4f4f4d;
   border-radius: 25px;
   h3 {
