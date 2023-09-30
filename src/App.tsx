@@ -22,6 +22,10 @@ function App() {
     });
   };
 
+  const handleDeleteNote = (idToDelete: string) => {
+    setNotes((prevNotes) => prevNotes.filter((note) => note.id !== idToDelete));
+  };
+
   return (
     <>
       <Header>
@@ -35,6 +39,7 @@ function App() {
             name="Favoritos"
             notes={notes.filter((data) => data.favorite)}
             toggleFavorite={toggleFavorite}
+            handleDeleteNote={handleDeleteNote}
           />
         )}
         {notes.some((data) => !data.favorite) && (
@@ -42,6 +47,7 @@ function App() {
             name="Outras"
             notes={notes.filter((data) => !data.favorite)}
             toggleFavorite={toggleFavorite}
+            handleDeleteNote={handleDeleteNote}
           />
         )}
       </Main>

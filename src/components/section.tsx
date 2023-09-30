@@ -9,12 +9,18 @@ interface FormData {
 }
 
 interface Props {
-  name: string
+  name: string;
   notes: FormData[];
   toggleFavorite: (id: string) => void;
+  handleDeleteNote: (id: string) => void;
 }
 
-export default function NoteSection({ name, notes, toggleFavorite }: Props) {
+export default function NoteSection({
+  name,
+  notes,
+  toggleFavorite,
+  handleDeleteNote,
+}: Props) {
   return (
     <StyledSection>
       <h2>{name}</h2>
@@ -27,6 +33,7 @@ export default function NoteSection({ name, notes, toggleFavorite }: Props) {
             text={data.text}
             favorite={data.favorite}
             onToggleFavorite={() => toggleFavorite(data.id)}
+            onDelete={() => handleDeleteNote(data.id)}
           />
         ))}
       </ul>

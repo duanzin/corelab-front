@@ -12,6 +12,7 @@ interface Props {
   text: string;
   favorite: boolean;
   onToggleFavorite: () => void;
+  onDelete: () => void;
 }
 
 export default function Note({
@@ -19,12 +20,18 @@ export default function Note({
   text,
   favorite,
   onToggleFavorite,
+  onDelete,
 }: Props) {
   const iconStyle = {
     fontSize: "1.5rem",
     cursor: "pointer",
     color: favorite ? "#FFAC1C" : "inherit",
   };
+
+  const handleDelete = () => {
+    onDelete();
+  };
+
   return (
     <StyledLi>
       <h3>
@@ -39,7 +46,10 @@ export default function Note({
       <div>
         <RiPencilLine style={{ ...iconStyle, color: "inherit" }} />
         <RiPaintFill style={{ ...iconStyle, color: "inherit" }} />
-        <RiCloseLine style={{ ...iconStyle, color: "inherit" }} />
+        <RiCloseLine
+          style={{ ...iconStyle, color: "inherit" }}
+          onClick={handleDelete}
+        />
       </div>
     </StyledLi>
   );
