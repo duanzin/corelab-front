@@ -35,6 +35,14 @@ function App() {
     );
   };
 
+  const handleUpdate = (id: string, newTitle: string, newText: string) => {
+    setNotes((prevNotes) =>
+      prevNotes.map((note) =>
+        note.id === id ? { ...note, title: newTitle, text: newText } : note
+      )
+    );
+  };  
+
   return (
     <>
       <Header>
@@ -50,6 +58,7 @@ function App() {
             toggleFavorite={toggleFavorite}
             handleDeleteNote={handleDeleteNote}
             handleColorChange={handleColorChange}
+            handleUpdate={handleUpdate}
           />
         )}
         {notes.some((data) => !data.favorite) && (
@@ -59,6 +68,7 @@ function App() {
             toggleFavorite={toggleFavorite}
             handleDeleteNote={handleDeleteNote}
             handleColorChange={handleColorChange}
+            handleUpdate={handleUpdate}
           />
         )}
       </Main>

@@ -33,8 +33,19 @@ export default function NoteForm({ notes, setNotes }: NoteFormProps) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newNote = { ...formData, id: uuidv4() };
-    setNotes([...notes, newNote]);
+    const trimmedTitle = formData.title.trim();
+    const trimmedText = formData.text.trim();
+    if (!trimmedTitle || !trimmedText) {
+      alert("Escreva algo que não seja só espaços!");
+    } else {
+      const newNote = {
+        ...formData,
+        id: uuidv4(),
+        title: trimmedTitle,
+        text: trimmedText,
+      };
+      setNotes([...notes, newNote]);
+    }
     setFormData({
       id: "",
       title: "",
@@ -49,6 +60,7 @@ export default function NoteForm({ notes, setNotes }: NoteFormProps) {
         type="text"
         id="title"
         name="title"
+        maxLength={24}
         value={formData.title}
         onChange={handleChange}
         autoComplete="off"
@@ -59,6 +71,7 @@ export default function NoteForm({ notes, setNotes }: NoteFormProps) {
         type="text"
         id="text"
         name="text"
+        maxLength={300}
         value={formData.text}
         onChange={handleChange}
         autoComplete="off"

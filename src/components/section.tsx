@@ -15,6 +15,7 @@ interface Props {
   toggleFavorite: (id: string) => void;
   handleDeleteNote: (id: string) => void;
   handleColorChange: (id: string, selectedColor: string) => void;
+  handleUpdate: (id: string, newTitle: string, newText: string) => void;
 }
 
 export default function NoteSection({
@@ -23,6 +24,7 @@ export default function NoteSection({
   toggleFavorite,
   handleDeleteNote,
   handleColorChange,
+  handleUpdate,
 }: Props) {
   return (
     <StyledSection>
@@ -39,6 +41,9 @@ export default function NoteSection({
             onToggleFavorite={() => toggleFavorite(data.id)}
             onDelete={() => handleDeleteNote(data.id)}
             onColorChange={(color) => handleColorChange(data.id, color)}
+            onUpdate={(newTitle, newText) =>
+              handleUpdate(data.id, newTitle, newText)
+            }
           />
         ))}
       </ul>

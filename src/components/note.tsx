@@ -6,6 +6,7 @@ import {
   RiPencilLine,
   RiCloseLine,
   RiStarFill,
+  RiSendPlaneFill,
 } from "react-icons/ri";
 
 interface Props {
@@ -17,6 +18,7 @@ interface Props {
   onToggleFavorite: () => void;
   onDelete: () => void;
   onColorChange: (color: string) => void;
+  onUpdate: (newTitle: string, newText: string) => void;
 }
 
 export default function Note({
@@ -27,8 +29,12 @@ export default function Note({
   onToggleFavorite,
   onDelete,
   onColorChange,
+  onUpdate,
 }: Props) {
   const [isColorPanelVisible, setIsColorPanelVisible] = useState(false);
+  const [newTitle, setNewTitle] = useState(title);
+  const [newText, setNewText] = useState(text);
+  const [isEditing, setIsEditing] = useState(false);
   const iconStyle = {
     fontSize: "1.5rem",
     cursor: "pointer",
@@ -48,27 +54,84 @@ export default function Note({
     setIsColorPanelVisible(false);
   };
 
+  const handleEditClick = () => {
+    setIsEditing(!isEditing);
+  };
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewTitle(e.target.value);
+  };
+
+  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewText(e.target.value);
+  };
+
+  const handleUpdateSubmit = (newTitle: string, newText: string) => {
+    if (newTitle.trim() && newText.trim()) onUpdate(newTitle, newText);
+    setIsEditing(false);
+  };
+
   return (
     <StyledLi bgcolor={bgColor}>
       <h3>
-        {title}
+        {isEditing ? (
+          <input
+            type="text"
+            id="title"
+            name="title"
+            maxLength={24}
+            value={newTitle}
+            onChange={handleTitleChange}
+            placeholder="Título"
+            autoComplete="off"
+          />
+        ) : (
+          title
+        )}
         <RiStarFill
           style={iconStyle}
           onClick={onToggleFavorite}
           className={favorite ? "favorite" : ""}
         />
       </h3>
-      <p>{text}</p>
+      <p>
+        {isEditing ? (
+          <input
+            type="text"
+            id="text"
+            name="text"
+            maxLength={300}
+            value={newText}
+            onChange={handleTextChange}
+            placeholder="Criar nota..."
+            autoComplete="off"
+          />
+        ) : (
+          text
+        )}
+      </p>
       <div>
-        <RiPencilLine style={{ ...iconStyle, color: "inherit" }} />
-        <RiPaintFill
+        <RiPencilLine
           style={{ ...iconStyle, color: "inherit" }}
-          onClick={handleColorClick}
+          onClick={handleEditClick}
         />
-        <RiCloseLine
-          style={{ ...iconStyle, color: "inherit" }}
-          onClick={handleDelete}
-        />
+        {isEditing ? (
+          <RiSendPlaneFill
+            style={{ ...iconStyle, color: "inherit" }}
+            onClick={() => handleUpdateSubmit(newTitle, newText)}
+          />
+        ) : (
+          <>
+            <RiPaintFill
+              style={{ ...iconStyle, color: "inherit" }}
+              onClick={handleColorClick}
+            />
+            <RiCloseLine
+              style={{ ...iconStyle, color: "inherit" }}
+              onClick={handleDelete}
+            />
+          </>
+        )}
         {isColorPanelVisible && (
           <ColorPanel onColorChange={handleColorChange} />
         )}
@@ -112,5 +175,12 @@ const StyledLi = styled.li<{ bgcolor: string }>`
     width: 100%;
     height: 10.6%;
     padding: 0.8rem 1.25rem;
+  }
+  input {
+    border: none;
+    margin: 0;
+    outline: none;
+    width: 100%;
+    background-color: transparent;
   }
 `;
