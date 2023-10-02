@@ -1,6 +1,6 @@
 #ToDo Notes
 
-> an web app to create to-do notes
+> an web app to create to-do notes made with react, vite and typescript
 
 ## Setting up
 
