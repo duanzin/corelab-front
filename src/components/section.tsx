@@ -1,30 +1,19 @@
 import styled from "styled-components";
 import Note from "./note";
+import { NoteData } from "../interfaces";
 
-interface FormData {
-  id: string;
-  title: string;
-  text: string;
-  favorite: boolean;
-  color: string;
-}
+type SetNotesFunction = React.Dispatch<React.SetStateAction<NoteData[]>>;
 
 interface Props {
   name: string;
-  notes: FormData[];
-  toggleFavorite: (id: string) => void;
-  handleDeleteNote: (id: string) => void;
-  handleColorChange: (id: string, selectedColor: string) => void;
-  handleUpdate: (id: string, newTitle: string, newText: string) => void;
+  notes: NoteData[];
+  setNotes: SetNotesFunction
 }
 
 export default function NoteSection({
   name,
   notes,
-  toggleFavorite,
-  handleDeleteNote,
-  handleColorChange,
-  handleUpdate,
+  setNotes
 }: Props) {
   return (
     <StyledSection>
@@ -38,12 +27,7 @@ export default function NoteSection({
             text={data.text}
             favorite={data.favorite}
             bgColor={data.color}
-            onToggleFavorite={() => toggleFavorite(data.id)}
-            onDelete={() => handleDeleteNote(data.id)}
-            onColorChange={(color) => handleColorChange(data.id, color)}
-            onUpdate={(newTitle, newText) =>
-              handleUpdate(data.id, newTitle, newText)
-            }
+            setNotes={setNotes}
           />
         ))}
       </ul>

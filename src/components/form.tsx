@@ -1,29 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { v4 as uuidv4 } from "uuid";
+import { createNote } from "../api/route";
+import { NoteData, FormData } from "../interfaces";
 
-interface FormData {
-  id: string;
-  title: string;
-  text: string;
-  favorite: boolean;
-  color: string;
-}
-
-type SetNotesFunction = React.Dispatch<React.SetStateAction<FormData[]>>;
+type SetNotesFunction = React.Dispatch<React.SetStateAction<NoteData[]>>;
 
 interface NoteFormProps {
-  notes: FormData[];
   setNotes: SetNotesFunction;
 }
 
-export default function NoteForm({ notes, setNotes }: NoteFormProps) {
+export default function NoteForm({ setNotes }: NoteFormProps) {
   const [formData, setFormData] = useState<FormData>({
-    id: "",
     title: "",
     text: "",
-    favorite: false,
-    color: "#FFFFFF",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,27 +20,29 @@ export default function NoteForm({ notes, setNotes }: NoteFormProps) {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const trimmedTitle = formData.title.trim();
-    const trimmedText = formData.text.trim();
+    const trimmedTitle: string = formData.title.trim();
+    const trimmedText: string = formData.text.trim();
     if (!trimmedTitle || !trimmedText) {
       alert("Escreva algo que não seja só espaços!");
     } else {
-      const newNote = {
-        ...formData,
-        id: uuidv4(),
-        title: trimmedTitle,
-        text: trimmedText,
-      };
-      setNotes([...notes, newNote]);
+      try {
+        const newNote: FormData = {
+          ...formData,
+          title: trimmedTitle,
+          text: trimmedText,
+        };
+        const response: NoteData[] = await createNote(newNote);
+        console.log(response);
+        setNotes(response);
+      } catch (error) {
+        console.error(error);
+      }
     }
     setFormData({
-      id: "",
       title: "",
       text: "",
-      favorite: false,
-      color: "#FFFFFF",
     });
   };
   return (

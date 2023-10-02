@@ -1,47 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import NoteForm from "./components/form";
 import NoteSection from "./components/section";
-
-interface FormData {
-  id: string;
-  title: string;
-  text: string;
-  favorite: boolean;
-  color: string;
-}
+import { getNotes } from "./api/route";
+import { NoteData } from "./interfaces";
 
 function App() {
-  const [notes, setNotes] = useState<FormData[]>([]);
+  const [notes, setNotes] = useState<NoteData[]>([]);
 
-  const toggleFavorite = (id: string) => {
-    setNotes((prevNotes) => {
-      const updatedNotes = prevNotes.map((note) =>
-        note.id === id ? { ...note, favorite: !note.favorite } : note
-      );
-      return updatedNotes;
-    });
-  };
+  useEffect(() => {
+    async function fetchNotes() {
+      try {
+        const response: NoteData[] = await getNotes();
+        setNotes(response);
+      } catch (error) {
+        console.error(error);
+      }
+    }
 
-  const handleDeleteNote = (idToDelete: string) => {
-    setNotes((prevNotes) => prevNotes.filter((note) => note.id !== idToDelete));
-  };
-
-  const handleColorChange = (id: string, selectedColor: string) => {
-    setNotes((prevNotes) =>
-      prevNotes.map((note) =>
-        note.id === id ? { ...note, color: selectedColor } : note
-      )
-    );
-  };
-
-  const handleUpdate = (id: string, newTitle: string, newText: string) => {
-    setNotes((prevNotes) =>
-      prevNotes.map((note) =>
-        note.id === id ? { ...note, title: newTitle, text: newText } : note
-      )
-    );
-  };  
+    fetchNotes();
+  }, []);
 
   return (
     <>
@@ -50,25 +28,19 @@ function App() {
         <input type="search" placeholder="Pesquisar notas" />
       </Header>
       <Main>
-        <NoteForm notes={notes} setNotes={setNotes} />
+        <NoteForm setNotes={setNotes} />
         {notes.some((data) => data.favorite) && (
           <NoteSection
             name="Favoritos"
             notes={notes.filter((data) => data.favorite)}
-            toggleFavorite={toggleFavorite}
-            handleDeleteNote={handleDeleteNote}
-            handleColorChange={handleColorChange}
-            handleUpdate={handleUpdate}
+            setNotes={setNotes}
           />
         )}
         {notes.some((data) => !data.favorite) && (
           <NoteSection
             name="Outras"
             notes={notes.filter((data) => !data.favorite)}
-            toggleFavorite={toggleFavorite}
-            handleDeleteNote={handleDeleteNote}
-            handleColorChange={handleColorChange}
-            handleUpdate={handleUpdate}
+            setNotes={setNotes}
           />
         )}
       </Main>

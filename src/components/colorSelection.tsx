@@ -1,10 +1,15 @@
 import styled from "styled-components";
+import { editColor } from "../api/route";
+import { NoteData, ObjectColor } from "../interfaces";
 
-interface ColorPanelProps {
-  onColorChange: (color: string) => void;
+type SetNotesFunction = React.Dispatch<React.SetStateAction<NoteData[]>>;
+
+interface Props {
+  id: number;
+  setNotes: SetNotesFunction;
 }
 
-export default function ColorPanel({ onColorChange }: ColorPanelProps) {
+export default function ColorPanel({ id, setNotes }: Props) {
   const colorButtons = [
     "#BAE2FF",
     "#B9FFDD",
@@ -20,8 +25,14 @@ export default function ColorPanel({ onColorChange }: ColorPanelProps) {
     "#A99A7C",
   ];
 
-  const handleColorButtonClick = (color: string) => {
-    onColorChange(color);
+  const handleColorButtonClick = async (bgcolor: string, id: number) => {
+    try {
+      const colorObject: ObjectColor = { color: bgcolor };
+      const response: NoteData[] = await editColor(colorObject, id);
+      setNotes(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <ButtonDiv>
@@ -31,7 +42,7 @@ export default function ColorPanel({ onColorChange }: ColorPanelProps) {
           style={{
             backgroundColor: color,
           }}
-          onClick={() => handleColorButtonClick(color)}
+          onClick={() => handleColorButtonClick(color, id)}
         ></button>
       ))}
     </ButtonDiv>

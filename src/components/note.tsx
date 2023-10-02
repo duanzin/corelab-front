@@ -1,6 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import ColorPanel from "./colorSelection";
+import { deleteNote, editContent, setFavorite } from "../api/route";
+import { NoteData } from "../interfaces";
 import {
   RiPaintFill,
   RiPencilLine,
@@ -9,27 +11,23 @@ import {
   RiSendPlaneFill,
 } from "react-icons/ri";
 
+type SetNotesFunction = React.Dispatch<React.SetStateAction<NoteData[]>>;
 interface Props {
-  id: string;
+  id: number;
   title: string;
   text: string;
   favorite: boolean;
   bgColor: string;
-  onToggleFavorite: () => void;
-  onDelete: () => void;
-  onColorChange: (color: string) => void;
-  onUpdate: (newTitle: string, newText: string) => void;
+  setNotes: SetNotesFunction;
 }
 
 export default function Note({
+  id,
   title,
   text,
   favorite,
   bgColor,
-  onToggleFavorite,
-  onDelete,
-  onColorChange,
-  onUpdate,
+  setNotes,
 }: Props) {
   const [isColorPanelVisible, setIsColorPanelVisible] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
@@ -41,17 +39,17 @@ export default function Note({
     color: favorite ? "#FFAC1C" : "inherit",
   };
 
-  const handleDelete = () => {
-    onDelete();
+  const handleDelete = async (id: number) => {
+    try {
+      const response: NoteData[] = await deleteNote(id);
+      setNotes(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleColorClick = () => {
     setIsColorPanelVisible(!isColorPanelVisible);
-  };
-
-  const handleColorChange = (selectedColor: string) => {
-    onColorChange(selectedColor);
-    setIsColorPanelVisible(false);
   };
 
   const handleEditClick = () => {
@@ -66,9 +64,29 @@ export default function Note({
     setNewText(e.target.value);
   };
 
-  const handleUpdateSubmit = (newTitle: string, newText: string) => {
-    if (newTitle.trim() && newText.trim()) onUpdate(newTitle, newText);
+  const handleUpdateSubmit = async (
+    title: string,
+    text: string,
+    id: number
+  ) => {
+    if (newTitle.trim() && newText.trim()) {
+      try {
+        const response: NoteData[] = await editContent({ title, text }, id);
+        setNotes(response);
+      } catch (error) {
+        console.error(error);
+      }
+    }
     setIsEditing(false);
+  };
+
+  const onToggleFavorite = async (id: number) => {
+    try {
+      const response: NoteData[] = await setFavorite(id);
+      setNotes(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -90,7 +108,7 @@ export default function Note({
         )}
         <RiStarFill
           style={iconStyle}
-          onClick={onToggleFavorite}
+          onClick={() => onToggleFavorite(id)}
           className={favorite ? "favorite" : ""}
         />
       </h3>
@@ -118,7 +136,7 @@ export default function Note({
         {isEditing ? (
           <RiSendPlaneFill
             style={{ ...iconStyle, color: "inherit" }}
-            onClick={() => handleUpdateSubmit(newTitle, newText)}
+            onClick={() => handleUpdateSubmit(newTitle, newText, id)}
           />
         ) : (
           <>
@@ -128,13 +146,11 @@ export default function Note({
             />
             <RiCloseLine
               style={{ ...iconStyle, color: "inherit" }}
-              onClick={handleDelete}
+              onClick={() => handleDelete(id)}
             />
           </>
         )}
-        {isColorPanelVisible && (
-          <ColorPanel onColorChange={handleColorChange} />
-        )}
+        {isColorPanelVisible && <ColorPanel id={id} setNotes={setNotes} />}
       </div>
     </StyledLi>
   );
