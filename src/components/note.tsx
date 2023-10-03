@@ -60,7 +60,7 @@ export default function Note({
     setNewTitle(e.target.value);
   };
 
-  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewText(e.target.value);
   };
 
@@ -114,11 +114,10 @@ export default function Note({
       </h3>
       <p>
         {isEditing ? (
-          <input
-            type="text"
+          <textarea
             id="text"
             name="text"
-            maxLength={300}
+            maxLength={677}
             value={newText}
             onChange={handleTextChange}
             placeholder="Criar nota..."
@@ -198,5 +197,14 @@ const StyledLi = styled.li<{ bgcolor: string }>`
     outline: none;
     width: 100%;
     background-color: transparent;
+  }
+  textArea {
+    border: none;
+    padding: 0;
+    outline: none;
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    resize: none;
   }
 `;

@@ -15,7 +15,9 @@ export default function NoteForm({ setNotes }: NoteFormProps) {
     text: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -58,11 +60,10 @@ export default function NoteForm({ setNotes }: NoteFormProps) {
         placeholder="Título"
         required
       />
-      <input
-        type="text"
+      <textarea
         id="text"
         name="text"
-        maxLength={300}
+        maxLength={677}
         value={formData.text}
         onChange={handleChange}
         autoComplete="off"
@@ -96,6 +97,11 @@ const Form = styled.form`
     outline: none;
     background-color: #ffffff;
     width: 100%;
+    border-radius: 3px 3px 0 0;
+    height: 25%;
+    @media (max-width: 54.85rem) {
+      border-radius: 25px 25px 0 0;
+    }
   }
   button {
     border: none;
@@ -110,14 +116,14 @@ const Form = styled.form`
       border-radius: 0 0 25px 25px;
     }
   }
-  :first-child {
-    border-radius: 3px 3px 0 0;
-    height: 25%;
-    @media (max-width: 54.85rem) {
-      border-radius: 25px 25px 0 0;
-    }
-  }
-  :nth-child(2) {
+  textArea {
+    border: none;
+    padding: 0;
+    outline: none;
     height: 55%;
+    width: 100%;
+    padding: 0 1rem;
+    background-color: #ffffff;
+    resize: none;
   }
 `;
