@@ -1,4 +1,4 @@
-#ToDo Notes
+#CoreNotes
 
 > an web app to create to-do notes made with react, vite and typescript
 
