@@ -7,6 +7,8 @@ import { NoteData } from "./interfaces";
 
 function App() {
   const [notes, setNotes] = useState<NoteData[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filteredNotes, setFilteredNotes] = useState<NoteData[]>([]);
 
   useEffect(() => {
     async function fetchNotes() {
@@ -21,25 +23,52 @@ function App() {
     fetchNotes();
   }, []);
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      const foundNotes = notes.filter((note) =>
+        note.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredNotes(searchTerm.trim() === "" ? [] : foundNotes);
+    }
+  };
+
   return (
     <>
       <Header>
         <h1>CoreNotes</h1>
-        <input type="search" placeholder="Pesquisar notas" />
+        <input
+          type="search"
+          id="searchInput"
+          name="searchInput"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyPress={handleKeyPress}
+          placeholder="Pesquisar notas"
+        />
       </Header>
       <Main>
         <NoteForm setNotes={setNotes} />
-        {notes.some((data) => data.favorite) && (
+        {filteredNotes.length === 0 ? (
+          <>
+            {notes.some((data) => data.favorite) && (
+              <NoteSection
+                name="Favoritos"
+                notes={notes.filter((data) => data.favorite)}
+                setNotes={setNotes}
+              />
+            )}
+            {notes.some((data) => !data.favorite) && (
+              <NoteSection
+                name="Outras"
+                notes={notes.filter((data) => !data.favorite)}
+                setNotes={setNotes}
+              />
+            )}
+          </>
+        ) : (
           <NoteSection
-            name="Favoritos"
-            notes={notes.filter((data) => data.favorite)}
-            setNotes={setNotes}
-          />
-        )}
-        {notes.some((data) => !data.favorite) && (
-          <NoteSection
-            name="Outras"
-            notes={notes.filter((data) => !data.favorite)}
+            name="Filtered Notes"
+            notes={filteredNotes}
             setNotes={setNotes}
           />
         )}
