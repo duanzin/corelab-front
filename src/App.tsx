@@ -9,6 +9,21 @@ function App() {
   const [notes, setNotes] = useState<NoteData[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredNotes, setFilteredNotes] = useState<NoteData[]>([]);
+  const [isColorFilterVisible, setIsColorFilterVisible] = useState(false);
+  const colorButtons = [
+    "#BAE2FF",
+    "#B9FFDD",
+    "#FFE8AC",
+    "#FFCAB9",
+    "#F99494",
+    "#9DD6FF",
+    "#ECA1FF",
+    "#DAFF8B",
+    "#FFA285",
+    "#CDCDCD",
+    "#979797",
+    "#A99A7C",
+  ];
 
   useEffect(() => {
     async function fetchNotes() {
@@ -32,6 +47,14 @@ function App() {
     }
   };
 
+  const handleColorButtonClick = (bgcolor: string) => {
+    const foundNotes = notes.filter(
+      (note) =>
+        bgcolor === "" || note.color.toLowerCase() === bgcolor.toLowerCase()
+    );
+    setFilteredNotes(foundNotes);
+  };
+
   return (
     <>
       <Header>
@@ -45,6 +68,24 @@ function App() {
           onKeyPress={handleKeyPress}
           placeholder="Pesquisar notas"
         />
+        <button onClick={() => setIsColorFilterVisible(!isColorFilterVisible)}>
+          Filtrar por cores
+        </button>
+        {isColorFilterVisible && (
+          <>
+            <div>
+              {colorButtons.map((color) => (
+                <button
+                  key={color}
+                  style={{
+                    backgroundColor: color,
+                  }}
+                  onClick={() => handleColorButtonClick(color)}
+                ></button>
+              ))}
+            </div>
+          </>
+        )}
       </Header>
       <Main>
         <NoteForm setNotes={setNotes} />
@@ -67,7 +108,7 @@ function App() {
           </>
         ) : (
           <NoteSection
-            name="Filtered Notes"
+            name="Notas encontradas"
             notes={filteredNotes}
             setNotes={setNotes}
           />
@@ -80,6 +121,7 @@ function App() {
 export default App;
 
 const Header = styled.header`
+  position: relative;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -101,6 +143,32 @@ const Header = styled.header`
     border: 1px solid #d9d9d9;
     border-radius: 3px;
     box-shadow: 1px 1px 3px 0px #00000040;
+  }
+  div {
+    position: absolute;
+    z-index: 1;
+    top: 3.563rem;
+    right: 20px;
+    box-sizing: content-box;
+    display: flex !important;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 0 .8rem;
+    width: 5.5rem;
+    height: 17.9rem !important;
+    gap: 0.625rem;
+    background-color: #ffffff;
+    border: 1px solid #d9d9d9;
+    border-radius: 9px;
+    button {
+      all: unset;
+      cursor: pointer;
+      height: 2.294rem;
+      width: 2.294rem;
+      border-radius: 9999px;
+    }
   }
 `;
 
