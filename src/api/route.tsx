@@ -17,16 +17,16 @@ export async function deleteNote(id: number) {
 }
 
 export async function setFavorite(id: number) {
-  const res = await axios.put(`${process.env.REACT_APP_API_URL}/favorite/${id}`);
+  const res = await axios.patch(`${process.env.REACT_APP_API_URL}/favorite/${id}`);
   return res.data;
 }
 
 export async function editColor(body: ObjectColor, id: number) {
-  const res = await axios.put(`${process.env.REACT_APP_API_URL}/color/${id}`, body);
+  const res = await axios.patch(`${process.env.REACT_APP_API_URL}/color/${id}`, body);
   return res.data;
 }
 
 export async function editContent(body: FormData, id: number) {
-  const res = await axios.put(`${process.env.REACT_APP_API_URL}/content/${id}`, body);
+  const res = await axios.put(`${process.env.REACT_APP_API_URL}/${id}`, body);
   return res.data;
 }
