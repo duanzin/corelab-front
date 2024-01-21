@@ -26,6 +26,8 @@ npm run dev
 Form creation is made using the form at the top center of the page, write your title and the main content of the page in the "Titulo" and "Criar nota..." spaces respectively, then click the "Enviar" button.
 The new note will be displayed in the "Outras" section, colored white and unfavorited by default.
 
+![notecreategif](https://github.com/duanzin/corelab-front/assets/115566934/c18c87d1-33f7-480b-a574-b97e85040b84)
+
 ### Deleting notes
 
 To delete a note, simply click the X on the bottom right of the note.
