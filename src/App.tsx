@@ -130,7 +130,7 @@ const Header = styled.header`
   background-color: #ffffff;
   padding: 0 2rem;
   margin-bottom: 1.5rem;
-  column-gap: 0.938rem;
+  gap: 0.938rem;
   box-shadow: 0px 1px 7px 0px #95959540;
   h1 {
     color: #455a64;
@@ -179,6 +179,12 @@ const Header = styled.header`
       width: 2.294rem;
       border-radius: 9999px;
     }
+  }
+  @media (max-width: 25.875rem) {
+    flex-wrap: wrap;
+    justify-content: center;
+    height: fit-content;
+    padding: 0.5rem;
   }
 `;
 
