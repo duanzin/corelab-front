@@ -53,7 +53,7 @@ export default function NoteForm({ setNotes }: NoteFormProps) {
         type="text"
         id="title"
         name="title"
-        maxLength={24}
+        maxLength={18}
         value={formData.title}
         onChange={handleChange}
         autoComplete="off"
@@ -63,7 +63,7 @@ export default function NoteForm({ setNotes }: NoteFormProps) {
       <textarea
         id="text"
         name="text"
-        maxLength={677}
+        maxLength={300}
         value={formData.text}
         onChange={handleChange}
         autoComplete="off"
