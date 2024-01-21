@@ -1,6 +1,7 @@
 # CoreNotes
 
 > a web app to create to-do notes made with react, vite and typescript
+
 ![notegif1](https://github.com/duanzin/corelab-front/assets/115566934/c96af62c-bf71-40a0-b5e7-24844ef9eee1)
 ![notegif2](https://github.com/duanzin/corelab-front/assets/115566934/ad268fd0-e178-4eb9-8011-e1b48961685e)
 
@@ -42,6 +43,7 @@ You can alter a note by changing its color, its content and title and its status
 
 To mark a note as favorite, click the star on the top right of the note. It will now be displayed in the "Favoritos" section. 
 Clicking the star again will unfavorite it and send it back to the "Outras" section.
+
 ![notefavgif](https://github.com/duanzin/corelab-front/assets/115566934/691b244e-ae2a-4ccb-a90b-35ccf2a9d6dc)
 
 #### Changing color
@@ -55,6 +57,7 @@ Currently theres no way to set a note to the default white color.
 
 To edit a note's content, click the pencil on the bottom right of the note. You can then alter its title and text, then click the paper plane at the bottom right to send the updated note to the database.
 Clicking the pen while in editing mode will cancel the edit.
+
 ![noteeditgif](https://github.com/duanzin/corelab-front/assets/115566934/826d72a4-dfe8-46a5-95aa-ae8800864ac7)
 
 ### Filtering notes
