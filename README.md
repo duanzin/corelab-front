@@ -30,6 +30,8 @@ The new note will be displayed in the "Outras" section, colored white and unfavo
 
 To delete a note, simply click the X on the bottom right of the note.
 
+![notedeletegif](https://github.com/duanzin/corelab-front/assets/115566934/c198031e-e92d-4bb8-bcba-be798eba6ba6)
+
 ### Altering notes
 
 You can alter a note by changing its color, its content and title and its status as favorite
@@ -59,5 +61,8 @@ You can filter a note by its title or color.
 To filter notes by title, simply type the title on the search bar at the top of the page and it will render notes whose titles contain the searched substring.
 To filter by color, click the "Filtrar por cores" button then one of the colored circles that show up. The page will render notes with the selected color. 
 Theres currently no way to filter only default white notes.
+
+![notefiltergif](https://github.com/duanzin/corelab-front/assets/115566934/b70aa187-c924-4879-b67a-4614ee786ff4)
+
 In order to show all notes again, simply press enter on the search bar while its blank.
 
