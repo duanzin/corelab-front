@@ -69,7 +69,7 @@ function App() {
           placeholder="Pesquisar notas"
         />
         <button onClick={() => setIsColorFilterVisible(!isColorFilterVisible)}>
-          Filtrar por cores
+          Filtrar por cor
         </button>
         {isColorFilterVisible && (
           <>
@@ -141,6 +141,16 @@ const Header = styled.header`
     height: 1.75rem;
     padding: 0 0.5rem;
     border: 1px solid #d9d9d9;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px 0px #00000040;
+  }
+  button{
+    min-width: 5rem;
+    padding: 0.25rem;
+    background-color: #ffffff;
+    color: #455a64;
+    cursor: pointer;
+    border: none;
     border-radius: 3px;
     box-shadow: 1px 1px 3px 0px #00000040;
   }
