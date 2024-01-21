@@ -44,6 +44,7 @@ Clicking the star again will unfavorite it and send it back to the "Outras" sect
 
 To change a note's color, click the paint bucket in the bottom center of the note then click one of the colored circles that show up.
 Currently theres no way to set a note to the default white color.
+
 ![notecolorgif](https://github.com/duanzin/corelab-front/assets/115566934/3a1943de-fcff-434f-84fe-e7c0cdfee7f1)
 
 #### Editing a note
