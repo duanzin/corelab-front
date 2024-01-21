@@ -144,7 +144,7 @@ const Header = styled.header`
     border-radius: 3px;
     box-shadow: 1px 1px 3px 0px #00000040;
   }
-  button{
+  button {
     min-width: 5rem;
     padding: 0.25rem;
     background-color: #ffffff;
@@ -165,7 +165,7 @@ const Header = styled.header`
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    padding: 0 .8rem;
+    padding: 0 0.8rem;
     width: 5.5rem;
     height: 17.9rem !important;
     gap: 0.625rem;
@@ -180,8 +180,8 @@ const Header = styled.header`
       border-radius: 9999px;
     }
     @media (max-width: 25.875rem) {
-    top: 7.25rem;
-  }
+      top: 7.25rem;
+    }
   }
   @media (max-width: 25.875rem) {
     flex-wrap: wrap;

@@ -85,8 +85,8 @@ const Form = styled.form`
   padding: 1px;
   row-gap: 1px;
   box-shadow: 1px 1px 3px 0px #00000040;
-  @media (max-width: 54.85rem) {
-    width: 24.375rem;
+  @media (max-width: 35.25rem) {
+    width: 80%;
     border-radius: 25px;
     box-shadow: 1px 2px 3px 0px #00000040;
   }
@@ -99,7 +99,7 @@ const Form = styled.form`
     width: 100%;
     border-radius: 3px 3px 0 0;
     height: 25%;
-    @media (max-width: 54.85rem) {
+    @media (max-width: 35.25rem) {
       border-radius: 25px 25px 0 0;
     }
   }
@@ -112,7 +112,7 @@ const Form = styled.form`
     width: 100%;
     height: 20%;
     border-radius: 0 0 3px 3px;
-    @media (max-width: 54.85rem) {
+    @media (max-width: 35.25rem) {
       border-radius: 0 0 25px 25px;
     }
   }
