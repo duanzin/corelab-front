@@ -165,6 +165,11 @@ const StyledLi = styled.li<{ bgcolor: string }>`
   background-color: ${(props) => props.bgcolor};
   color: #4f4f4d;
   border-radius: 25px;
+  @media (max-width: 30.625rem) {
+    width: 100%;
+    height: fit-content;
+    aspect-ratio: 7/8;
+  }
   h3 {
     display: flex;
     justify-content: space-between;

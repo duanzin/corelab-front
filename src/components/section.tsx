@@ -47,6 +47,9 @@ const StyledSection = styled.section`
   @media (max-width: 54.85rem) {
     width: 24.375rem;
   }
+  @media (max-width: 30.625rem) {
+    width: 80%;
+  }
   h2 {
     margin-left: 1.25rem;
     width: fit-content;
