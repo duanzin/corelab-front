@@ -158,7 +158,7 @@ const Header = styled.header`
     position: absolute;
     z-index: 1;
     top: 3.563rem;
-    right: 20px;
+    right: 1.25rem;
     box-sizing: content-box;
     display: flex !important;
     flex-direction: column;
@@ -179,6 +179,9 @@ const Header = styled.header`
       width: 2.294rem;
       border-radius: 9999px;
     }
+    @media (max-width: 25.875rem) {
+    top: 7.25rem;
+  }
   }
   @media (max-width: 25.875rem) {
     flex-wrap: wrap;
