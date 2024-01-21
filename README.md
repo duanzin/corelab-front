@@ -55,4 +55,5 @@ You can filter a note by its title or color.
 To filter notes by title, simply type the title on the search bar at the top of the page and it will render notes whose titles contain the searched substring.
 To filter by color, click the "Filtrar por cores" button then one of the colored circles that show up. The page will render notes with the selected color. 
 Theres currently no way to filter only default white notes.
+In order to show all notes again, simply press enter on the search bar while its blank.
 
